@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using DatingApp.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DatingApp
 {
@@ -29,7 +32,22 @@ namespace DatingApp
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors();  // Add cross origin service so that you will be able to access the webapi in angular
-            services.AddScoped<IAuthRepository, AuthRepository>(); // Add the repository to the Startup 
+            services.AddScoped<IAuthRepository, AuthRepository>(); // Add the repository to the Startup
+
+            // Add Authentication Middleware/AuthenticationSchema
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(Options =>
+        {
+          Options.TokenValidationParameters = new TokenValidationParameters
+          {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection
+            ("AppSettings:Token").Value)),
+
+            ValidateIssuer = false,
+            ValidateAudience = false
+
+          };
+        });
 
         }
 
@@ -41,8 +59,10 @@ namespace DatingApp
                 app.UseDeveloperExceptionPage();
             }
 
-            // Policy for cros origin (AllowAnyOrigin(),AllowAnyMethod(),AllowAnyHeader())
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());      // The order is very important start with cross oigin first b4 you come with MVC
+         // Policy for cros origin (AllowAnyOrigin(),AllowAnyMethod(),AllowAnyHeader())
+          // The order is very important start with cross oigin first b4 you come with MVC
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseAuthentication();
             app.UseMvc();
         }
     }
