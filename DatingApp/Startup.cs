@@ -28,7 +28,8 @@ namespace DatingApp
         {
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddCors();  // Add cross origin service so that you will be able to access the webapi in angula
+            services.AddCors();  // Add cross origin service so that you will be able to access the webapi in angular
+            services.AddScoped<IAuthRepository, AuthRepository>(); // Add the repository to the Startup 
 
         }
 
