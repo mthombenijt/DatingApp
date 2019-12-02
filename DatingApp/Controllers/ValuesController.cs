@@ -23,6 +23,7 @@ namespace DatingApp.Controllers
 
         }
         // GET api/values
+        [AllowAnonymous]
         [HttpGet]
         //We use Async for not blocking any request while we waiting the results,lot of people can make request
         public async Task<IActionResult> GetValues()            //Get values from  database as list

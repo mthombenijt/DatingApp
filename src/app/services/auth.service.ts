@@ -20,9 +20,10 @@ login(model: any){ // model: any from the componet, is gonna take infor to the c
       }
     })
   );
+}
 
-
-
+register(model: any){
+  return this.Http.post(this.baseUrl + 'register', model); //returning observable
 }
 
 }

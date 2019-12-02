@@ -57,6 +57,8 @@ namespace DatingApp.Controllers
     public async Task<IActionResult> LogIn(UserForLogInDto userForLogInDto)
     {
 
+      throw new Exception("computor says no");
+
       var userFromRepo = await _repo.LogIn(userForLogInDto.Username.ToLower(), userForLogInDto.Password);
 
       if (userFromRepo == null)
