@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using DatingApp.Data;
+using DatingApp.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -61,7 +62,7 @@ namespace DatingApp
             {
                 app.UseDeveloperExceptionPage();
             }
-            // writting exception globally
+            // writting globally Exception hander
       else
       {
         app.UseExceptionHandler(builder =>
@@ -72,12 +73,13 @@ namespace DatingApp
             var error = context.Features.Get<IExceptionHandlerFeature>();
             if (error != null)
             {
+              context.Response.AddApplicationError(error.Error.Message);
               await context.Response.WriteAsync(error.Error.Message); //write error msg into our http responds as well
             }
           });
 
         });
-      }
+      } 
 
          // Policy for cros origin (AllowAnyOrigin(),AllowAnyMethod(),AllowAnyHeader())
           // The order is very important start with cross oigin first b4 you come with MVC
