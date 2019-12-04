@@ -24,8 +24,8 @@ export class ErrorInterceptor implements HttpInterceptor {
                  }
                  const severError = error.error; // * check for sever error * /
                  let modalStateErrors = '';
-                 if(severError && typeof severError === 'object') {
-                     for (const key in severError){
+                 if (severError && typeof severError === 'object') {
+                     for (const key in severError) {
                          if (severError[key]) {
                              modalStateErrors += severError[key] + '\n';
                          }
@@ -33,7 +33,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                      }
 
                  }
-                 return throwError(modalStateErrors || severError || 'Server Error'); // * pass generic sver error * / 
+                 return throwError(modalStateErrors || severError || 'Server Error'); // pass generic sver error
 
              }
          }
@@ -42,7 +42,7 @@ export class ErrorInterceptor implements HttpInterceptor {
  }
 }
 
-export const ErrorInterceptorProvider = {  // Export the global exception tpo the model,call this method to the model provider
+export const ErrorInterceptorProvider = {  // Export the global exception to the model,call this method to the model provider
   provide: HTTP_INTERCEPTORS,
   useClass: ErrorInterceptor,
   multi: true

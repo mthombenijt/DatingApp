@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import {JwtHelperService} from '@auth0/angular-jwt'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   baseUrl = 'http://localhost:59514/api/Auth/';
+  jwthelper = new JwtHelperService; // this import is for token validation
+  decodedToken: any; 
 
 
 constructor(private Http: HttpClient) { }
@@ -17,6 +20,8 @@ login(model: any){ // model: any from the componet, is gonna take infor to the c
       const user = response;
       if (user) {
         localStorage.setItem('token', user.token); // user we returning from our Api
+        this.decodedToken = this.jwthelper.decodeToken(user.token); // change decodeToken to  the normal username 
+        console.log(this.decodedToken);
       }
     })
   );
@@ -24,6 +29,13 @@ login(model: any){ // model: any from the componet, is gonna take infor to the c
 
 register(model: any){
   return this.Http.post(this.baseUrl + 'register', model); //returning observable
+}
+
+// Token validation
+loggedIn(){ // check if the user has loggedin,and check if the token is valid
+  const token = localStorage.getItem('token');
+  return !this.jwthelper.isTokenExpired(token); // if the token is not expired the method will return true else false
+
 }
 
 }

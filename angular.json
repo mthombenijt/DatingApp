@@ -25,8 +25,11 @@
             ],
             "styles": [
               "src/styles.css"
+              
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/alertifyjs/build/alertify.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -91,7 +94,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/alerifyjs/build/alertify.min.js"
+            ]
           }
         },
         "lint": {
