@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../Services/Auth.service';
 import { AlertifyService } from '../services/alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -11,7 +12,7 @@ export class NavComponent implements OnInit {
   model: any = {}; // Object which is going to store username and password and send them to a server
 
   // tslint:disable-next-line: max-line-length
-  constructor(public authService: AuthService, private alertify: AlertifyService) { } // inject a service to a constructor so that I can use it in a component
+  constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router) { } // inject a service to a constructor so that I can use it in a component
 
   ngOnInit() {
   }
@@ -21,9 +22,9 @@ export class NavComponent implements OnInit {
       this.alertify.success('Logged In Successfully');
     }, error => {
     this.alertify.error(error);
-    }
-    );
-
+    }, () => {
+      this.router.navigate(['/members']);
+    });
   }
 
    loggedIn() { // loggedin method, metthod which shows that a user has logged in
@@ -33,6 +34,7 @@ export class NavComponent implements OnInit {
   logout() { // logout method
     localStorage.removeItem('token');
     this.alertify.message('Loged Out');
+    this.router.navigate(['/home']);
   }
 
 }
