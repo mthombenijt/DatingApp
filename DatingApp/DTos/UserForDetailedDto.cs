@@ -1,26 +1,21 @@
+using DatingApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DatingApp.Models
+namespace DatingApp.DTos
 {
-  public class User
+  public class UserForDetailedDto
   {
-   
+    // To mapp the user model class and the Dto, I use the AutoMapper
     public int Id { get; set; }
 
     public string Username { get; set; }
 
-    public byte[] PasswordHash { get; set; }
-
-    public byte[] PasswordSalt { get; set; }
-
     public string Gender { get; set; }
 
-    public DateTime DateOfBirth { get; set; }
-
-    public int MyProperty { get; set; }
+    public int Age { get; set; }
 
     public string KnownAs { get; set; }
 
@@ -38,10 +33,9 @@ namespace DatingApp.Models
 
     public string Country { get; set; }
 
-    public ICollection<Photo> Photos { get; set; } // one to many relationship
+    public string PhotoUrl { get; set; }
 
-
-
+    public ICollection<PhotosForDetailedDto>Photos{ get; set; }
 
 
   }

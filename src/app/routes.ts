@@ -10,7 +10,7 @@ export const appRoutes: Routes = [
     {path: '', component: HomeComponent}, // home route, make it empty so that you can access it in other browser when you loggedin
     {
         path: '', // create a dummy routing and add the childrend inside,so that you can do multiple routes
-        runGuardsAndResolvers: 'always',
+        runGuardsAndResolvers: 'always', // add runGuards
         canActivate: [AuthGuard],
         children: [
             // tslint:disable-next-line: max-line-length

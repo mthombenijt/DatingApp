@@ -53,7 +53,7 @@ namespace DatingApp.Controllers
 
     }
 
-    [HttpPost("ligIn")]
+    [HttpPost("ligIn")] // we calling this from our postman
     public async Task<IActionResult> LogIn(UserForLogInDto userForLogInDto)
     {
 
