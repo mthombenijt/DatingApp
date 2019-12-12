@@ -9,7 +9,7 @@ namespace DatingApp.Data
   public interface IDatingRepository
   {
     void Add<T>(T entity) where T: class; // use generic method,this method will add both the user and the photo
-    void Delete<T>(T entity) where T : class; // use generic method
+    void Delete<T>(T entity) where T : class; // use generic method/ <T> is the type, (T entity) is the parameters
 
     Task<bool> SaveAll();
 
