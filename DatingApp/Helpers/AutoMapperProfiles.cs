@@ -14,7 +14,7 @@ namespace DatingApp.Helpers
     public AutoMapperProfiles()
     {
       CreateMap<User, UserForListDto>() // mapping the user model to the UserFoListDTo
-      .ForMember(dest => dest.PhotoUrl, opt =>
+      .ForMember(dest => dest.PhotoUrl, opt => // dest = destination, opt = option
       {
         opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url); // getting photo url
       })

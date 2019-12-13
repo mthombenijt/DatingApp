@@ -29,6 +29,7 @@
             ],
             "scripts": [
               "node_modules/alertifyjs/build/alertify.min.js"
+             
             ]
           },
           "configurations": {
@@ -92,10 +93,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
               "node_modules/alerifyjs/build/alertify.min.js"
+              
             ]
           }
         },

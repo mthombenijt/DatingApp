@@ -2,7 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule} from 'ngx-bootstrap';
+import { JwtModule } from '@auth0/angular-jwt';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,12 +19,20 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './services/error.interceptor';
 import { AlertifyService } from './services/alertify.service';
-import { MemberListComponent } from './member-list/member-list.component';
+import { MemberListComponent } from './members/member-list/member-list.component';
 import { ListComponent } from './list/list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
+import { UserService } from './services/user.service';
+import { MemberCardComponent } from './members/member-card/member-card.component';
+import { from } from 'rxjs';
+
+
+export function tokenGetter() {
+   return localStorage.getItem('token');
+}
 
 
 
@@ -33,7 +44,8 @@ import { AuthGuard } from './_guards/auth.guard';
       RegisterComponent,
       MemberListComponent,
       ListComponent,
-      MessagesComponent
+      MessagesComponent,
+      MemberCardComponent,
    ],
    imports: [
       BrowserModule,
@@ -41,13 +53,22 @@ import { AuthGuard } from './_guards/auth.guard';
       HttpClientModule,
       FormsModule,
       BsDropdownModule.forRoot(),
-      RouterModule.forRoot(appRoutes) // the routes file is imported to the RouterModule
+      JwtModule.forRoot({ // using JWTModule to send the token automatically to access the pages
+         config: {
+            // tslint:disable-next-line: object-literal-shorthand
+            tokenGetter: tokenGetter,
+            whitelistedDomains: ['localhost:59514'],
+            blacklistedRoutes: ['localhost:59514/api/Auth']
+         }
+      }),
+      RouterModule.forRoot(appRoutes)// the appRoutes file is imported to the RouterModule
    ],
    providers: [
       AuthService,
       ErrorInterceptorProvider,
       AlertifyService,
-      AuthGuard
+      AuthGuard,
+      UserService
    ],
    bootstrap: [
       AppComponent

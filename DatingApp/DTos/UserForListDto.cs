@@ -29,6 +29,8 @@ namespace DatingApp.DTos
 
     public string  PhotoUrl { get; set; }
 
+    //public ICollection<PhotosForDetailedDto> Photos { get; set; }
+
 
 
   }
