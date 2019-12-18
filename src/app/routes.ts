@@ -4,6 +4,10 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { ListComponent } from './list/list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
+import { MemberListResolver } from './_resolvers/member-list-resolver';
+
 
 // Router file which will be exported to the app module
 export const appRoutes: Routes = [
@@ -14,7 +18,10 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             // tslint:disable-next-line: max-line-length
-            {path: 'members', component: MemberListComponent, canActivate: [AuthGuard]}, // add the canActivate to block this page to be access by URL
+            {path: 'members', component: MemberListComponent,
+             resolve: {users: MemberListResolver}}, // add the canActivate to block this page to be access by URL
+            {path: 'members/:id', component: MemberDetailComponent,
+             resolve: {user: MemberDetailResolver}}, // rout parameter, add a resolver to avoid safe navigation operator '?'
             {path: 'messages', component: MessagesComponent},
             {path: 'list', component: ListComponent},
 
