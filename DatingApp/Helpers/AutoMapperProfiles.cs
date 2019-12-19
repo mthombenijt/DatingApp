@@ -13,7 +13,7 @@ namespace DatingApp.Helpers
 
     public AutoMapperProfiles()
     {
-      CreateMap<User, UserForListDto>() // mapping the user model to the UserFoListDTo
+      CreateMap<User,UserForListDto>() // mapping the user model to the UserFoListDTo
       .ForMember(dest => dest.PhotoUrl, opt => // dest = destination, opt = option
       {
         opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url); // getting photo url
@@ -38,6 +38,10 @@ namespace DatingApp.Helpers
 
 
       CreateMap<Photo, PhotosForDetailedDto>();
+
+      CreateMap<UserForUpdateDto, User>(); // mapping for the update dto NB
+
+
 
     }
   }
