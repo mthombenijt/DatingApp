@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import { User } from '../_models/user';
 
 
+
  // ** const httpOptions = {headers: new HttpHeaders({
 
     // tslint:disable-next-line: object-literal-key-quotes
@@ -32,6 +33,13 @@ getUser(id): Observable<User> {
 updateUser(id: number, user: User){
   return this.http.put(this.baseUrl + 'Users/' + id, user);
 }
+
+setMainPhoto(userId: number, id: number) {
+
+  // put the {} just to replace the headers which are required for the post
+  return this.http.post(this.baseUrl + 'Users/' + userId + '/photos/' + id + '/isMain', {});
+}
+
 
 
 

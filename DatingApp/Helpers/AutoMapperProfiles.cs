@@ -40,6 +40,10 @@ namespace DatingApp.Helpers
       CreateMap<Photo, PhotosForDetailedDto>();
 
       CreateMap<UserForUpdateDto, User>(); // mapping for the update dto NB
+   
+      CreateMap<Photo, PhotoForReturnDto>(); // mapping the photoReturn to the Photo class
+
+      CreateMap<PhotoForCreationDto, Photo>();
 
 
 

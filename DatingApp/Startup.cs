@@ -45,6 +45,7 @@ namespace DatingApp
             services.AddTransient<Seed>(); // add the Seed class in the services
             services.AddScoped<IAuthRepository, AuthRepository>(); // Add the repository to the Startup
             services.AddScoped<IDatingRepository, DatingRepository>();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings")); //add cloudinary service
 
             // Add Authentication Middleware/AuthenticationSchema
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(Options =>

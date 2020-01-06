@@ -69,7 +69,8 @@
         
 
           <tab heading="Edit Photo">
-           <p>Edit Photo comes here</p>
+          <app-Photo-Editor [photos]="user.photos" 
+          (getMemberPhotoChange)="updateMainPhoto($event)"></app-Photo-Editor>
           </tab>
 
         
