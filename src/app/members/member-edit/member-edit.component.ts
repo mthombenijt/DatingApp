@@ -18,6 +18,7 @@ import { error } from 'util';
 export class MemberEditComponent implements OnInit {
   @ViewChild('editForm', {static: false}) editForm: NgForm; // use static : false is the component is not static
   user: User;
+  photoUrl: string;
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     if (this.editForm.dirty) {
@@ -35,6 +36,7 @@ export class MemberEditComponent implements OnInit {
       // tslint:disable-next-line: no-string-literal
       this.user = data['user'];
     });
+    this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
   }
 
   updateProfile() {

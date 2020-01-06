@@ -40,6 +40,10 @@ setMainPhoto(userId: number, id: number) {
   return this.http.post(this.baseUrl + 'Users/' + userId + '/photos/' + id + '/isMain', {});
 }
 
+deletePhoto(userId: number, id: number) {
+  return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id);
+}
+
 
 
 

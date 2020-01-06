@@ -10,11 +10,12 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
   model: any = {}; // Object which is going to store username and password and send them to a server
-
+  photoUrl: string;
   // tslint:disable-next-line: max-line-length
   constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router) { } // inject a service to a constructor so that I can use it in a component
 
   ngOnInit() {
+    this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
   }
 
   LogIn() { // login method/function

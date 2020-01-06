@@ -16,13 +16,13 @@ export class AuthService {
   decodedToken: any; 
   currentUser: User;
   photoUrl = new BehaviorSubject<string>('../../assets/user.png'); // use the BehaviorSubject to connect between the components
-  currentUserUrl = this.photoUrl.asObservable();
+  currentPhotoUrl = this.photoUrl.asObservable();
 
 
 constructor(private Http: HttpClient) { }
 
     changeMemberPhoto(photoUrl: string){ // method to change the photo in the nav component while changing it in main photo
-      this.photoUrl.next(photoUrl);
+      this.photoUrl.next(photoUrl); //  BehaviourSubject has the NEXT subject
     }
 
 login(model: any){ // model: any from the componet, is gonna take infor to the component
