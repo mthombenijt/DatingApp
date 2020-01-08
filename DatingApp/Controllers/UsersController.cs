@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DatingApp.Data;
 using DatingApp.DTos;
+using DatingApp.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DatingApp.Controllers
 {
+
+  [ServiceFilter(typeof(LogUserActivity))] // add the service filter that will track the user activity 
   [Authorize]
   [Route("api/[controller]")]
   [ApiController]

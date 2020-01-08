@@ -24,11 +24,11 @@
            </div>
            <div>
             <strong>Last Active:</strong>
-            <P>{{user.lastActive}}</P>
+            <P>{{user.lastActive | timeAgo}}</P>
           </div>
           <div>
             <strong>Member Since:</strong>
-            <P>{{user.dateCreated}}</P>
+            <P>{{user.dateCreated | date: 'mediumDate'}}</P>
           </div>
           <div class="card-footer">
               <button [disabled]="!editForm.dirty" form="editform"  class="btn btn-success btn-block mr-3">Save Changes</button>  
