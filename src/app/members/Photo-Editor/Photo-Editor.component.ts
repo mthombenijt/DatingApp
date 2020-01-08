@@ -54,10 +54,16 @@ export class PhotoEditorComponent implements OnInit {
           dateAded: res.dateAded,
           description: res.description,
           isMain: res.isMain
-
-
         };
         this.photos.push(photo);
+
+        if (photo.isMain ) { // check if there is a main photo, if is not there make the pic that you upload to be the main pic
+           this.authService.changeMemberPhoto(photo.url); // change photo at the parent component and to the nav bar
+           this.authService.currentUser.photoUrl = photo.url;
+           localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
+
+        }
+
       }
     };
   }
