@@ -7,6 +7,7 @@ using AutoMapper;
 using DatingApp.Data;
 using DatingApp.DTos;
 using DatingApp.Helpers;
+using DatingApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -42,7 +43,7 @@ namespace DatingApp.Controllers
       if (string.IsNullOrEmpty(userParams.Gender))
       {
         // compare if the user who loged in is the male or female
-        userParams.Gender = userFromRepo.Gender == "male" ? "female" : "male"; 
+        userParams.Gender = userFromRepo.Gender == "male" ? "female" : "male";
 
       }
 
@@ -81,8 +82,38 @@ namespace DatingApp.Controllers
 
       throw new Exception($"updating user {id} failed on save");
 
-      
     }
+
+    [HttpPost("{id}/like/{recipientId}")]
+    public async Task<IActionResult> LikeUser(int id, int recipientId) {
+      if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) // the method to check if the person who wanna update is the person who loggedin
+        return Unauthorized();
+
+      var like = await _repo.GetLike(id, recipientId); // to check if like does exist by calling the getlike method from the repository
+
+      if (like != null) // check if you have already like the user
+        return BadRequest("You already like this user");
+
+      if (await _repo.GetUser(recipientId) == null) // check if the recepient of the like exist
+        return NotFound();
+
+      like = new Like   // create a new like
+      {
+        LikerId = id,
+        LikeeId = recipientId,
+      };
+
+      _repo.Add<Like>(like); // add a new like in a _repo 
+
+      if (await _repo.SaveAll()) // save a new _repo to a data base
+        return Ok();
+
+     return BadRequest("Failed to save user"); // if did not save succesfully we send bad request
+
+
+    }
+
+
 
 
 

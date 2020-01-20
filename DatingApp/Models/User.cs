@@ -40,6 +40,12 @@ namespace DatingApp.Models
 
     public ICollection<Photo> Photos { get; set; } // one to many relationship
 
+    public ICollection<Like> Likers { get; set; } // many to many relationship(many users can like one user)
+
+    public ICollection<Like> Likees { get; set; } // many to many relationship(many users can be like by one user)
+
+
+
 
 
 

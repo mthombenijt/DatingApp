@@ -8,15 +8,17 @@ import { catchError } from 'rxjs/operators';
 import { error } from 'util';
 
 @Injectable()
-export class MemberListResolver implements Resolve<User[]> {
+export class ListsResolver implements Resolve<User[]> {
     pageNumber = 1;
     pageSize = 5;
+    likesParam = 'Likers'; // set initially to likers, list of users who like the current logged in user
+
     constructor(private userService: UserService, private route: Router,
                 private alert: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
         // tslint:disable-next-line: no-string-literal
-        return this.userService.getUsers(this.pageNumber, this.pageSize).pipe(
+        return this.userService.getUsers(this.pageNumber, this.pageSize, null, this.likesParam).pipe(
             // pipe method it s used only to fetch errors
             // tslint:disable-next-line: no-shadowed-variable
             catchError(error => {

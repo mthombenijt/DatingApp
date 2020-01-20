@@ -32,6 +32,13 @@ namespace DatingApp.Helpers
 
     public string OrderBy { get; set; }
 
+    public bool Likees { get; set; } = false; // method to filter the users that the user like
+
+    public bool Likers { get; set; } = false; // method to filter the users that like the other user
+
+
+
+
 
 
 
