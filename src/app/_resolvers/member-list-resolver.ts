@@ -9,19 +9,18 @@ import { error } from 'util';
 
 @Injectable()
 export class MemberListResolver implements Resolve<User[]> {
-    /**
-     *
-     */
+    pageNumber = 1;
+    pageSize = 5;
     constructor(private userService: UserService, private route: Router,
                 private alert: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
         // tslint:disable-next-line: no-string-literal
-        return this.userService.getUsers().pipe(
+        return this.userService.getUsers(this.pageNumber, this.pageSize).pipe(
             // pipe method it s used only to fetch errors
             // tslint:disable-next-line: no-shadowed-variable
             catchError(error => {
-                this.alert.error('Problem Retriving Data');
+                this.alert.error('Probl.0em Retriving Data');
                 this.route.navigate(['/home']);
                 return of(null);
             })

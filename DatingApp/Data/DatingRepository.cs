@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DatingApp.Helpers;
 using DatingApp.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -48,11 +49,45 @@ namespace DatingApp.Data
      
     }
 
-    public async Task<IEnumerable<User>> GetUsers()
+    public async Task<PagedList<User>> GetUsers(UserParams userParams) // change Inumeric to PagedList so that you can add User to PagedList
     {
-      var user = await _context.Users.Include(p => p.Photos).ToListAsync();
+      var users = _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastActive).AsQueryable();
+      // display all users besides the user who logged in
+      users = users.Where(u => u.Id != userParams.UserId);
+      // //dispaly gender which is different from a user who logged in
+      users = users.Where(u => u.Gender == userParams.Gender);
 
-      return user;
+      if (userParams.MinAge != 18 || userParams.MinAge != 99)
+      {
+
+        // formula to get the minimum date of birth
+        var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
+
+        // formula to get the maximum date of birth
+        var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
+
+        // comparing the date of birth the user entered whith the min and max age 
+        users = users.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
+
+      }
+      // create a switch to order the users in descending order, arcoding to the last active user
+      if (!string.IsNullOrEmpty(userParams.OrderBy))
+      {
+        switch (userParams.OrderBy)
+        {
+          case "created":
+            users = users.OrderByDescending(u => u.DateCreated);
+            break;
+          default:
+            users = users.OrderByDescending(u => u.LastActive);
+            break;
+        }
+
+      }
+
+
+
+      return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
     }
 
     public async Task<bool> SaveAll()

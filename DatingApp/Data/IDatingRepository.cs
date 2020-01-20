@@ -1,3 +1,4 @@
+using DatingApp.Helpers;
 using DatingApp.Models;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace DatingApp.Data
 
     Task<bool> SaveAll();
 
-    Task<IEnumerable<User>> GetUsers(); //list all Users
+    Task<PagedList<User>> GetUsers(UserParams userParams); //list all Users using PagedList and UserParams to add users in pagination
 
     Task<User> GetUser(int id); //list one user depends on the ID
 
