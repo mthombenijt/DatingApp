@@ -1,27 +1,15 @@
 # DatingApp
+The project it is build using asp.net core for back-end and Angular 6 for front-end
+The project is also build using bootstrap and MSSQL
+The project consist of security, the user have to login using a username and password to use the app
+The users information will be protected
+The user will able to send the messages to a other user his/shes communicating with,
+and the user will get a respond from other users,just like when you send and resive mails from gmail.
+The user of the app will be able to add his/her pictures to his account
+The user will be able to edit his profile
+New users will can register themselves and start using the app
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.13.
 
 ## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
